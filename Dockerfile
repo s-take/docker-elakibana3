@@ -14,6 +14,8 @@ ADD ./elasticsearch.repo /etc/yum.repos.d/elasticsearch.repo
 RUN yum install -y elasticsearch java-1.7.0-openjdk-devel cronie
 WORKDIR usr/share/elasticsearch/
 RUN bin/plugin -url http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip -install elasticsearch/kibana3
+RUN echo 'http.cors.enabled: true' >> /etc/elasticsearch/elasticsearch.yml &&\
+    echo 'http.cors.allow-origin: "/.*/"' >> /etc/elasticsearch/elasticsearch.yml
 
 # Setup supervisord
 RUN yum install -y python-setuptools
